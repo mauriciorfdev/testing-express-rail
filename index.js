@@ -5,9 +5,12 @@ const port = 3000
 app.use( express.json() )
 
 app.get('/', (req,res)=>{
-    res.send('hello world!')
+    res.send('GET request')
+})
+app.post('/', (req,res)=>{
+    res.send('POST request')
 })
 
 app.listen(port, ()=>{
-    console.log(`LISTEN ON PORT ${port}`);
+    console.log(`LISTEN ON PORT ${port}...`);
 })
