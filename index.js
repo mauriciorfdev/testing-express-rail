@@ -1,6 +1,6 @@
 const express = require('express')
 const app = express()
-const port = 3000
+const port = 3000 || process.env.PORT
 
 app.use( express.json() )
 app.use( express.urlencoded({extended:false}))
@@ -12,8 +12,18 @@ const logger = function(req, res, next){
 }
 
 
-
 app.use(logger)
+
+
+//GET - POST TO HOME('/') PATH
+app.get('/', (req,res)=>{
+    res.send(`GET request`)
+})
+app.post('/', (req,res)=>{
+    res.send(`POST Request - isAdmin:${req.body.isAdmin}`)
+})
+
+
 
 
 app.get('/user/:id', (req, res, next)=>{
@@ -28,13 +38,7 @@ app.get('/user/:id', (req, res, next)=>{
 })
 
 
-//GET - POST TO HOME('/') PATH
-app.get('/', (req,res)=>{
-    res.send(`GET request`)
-})
-app.post('/', (req,res)=>{
-    res.send(`POST Request - isAdmin:${req.body.isAdmin}`)
-})
+
 
 
 app.listen(port, ()=>{
