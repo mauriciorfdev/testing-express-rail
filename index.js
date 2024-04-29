@@ -6,14 +6,6 @@ app.use( express.json() )
 app.use( express.urlencoded({extended:false}))
 //app.use( express.urlencoded({extended:false}))
 
-const logger = function(req, res, next){
-    console.log('Logger - METHOD: '+req.method);
-    next()
-}
-
-
-app.use(logger)
-
 
 //GET - POST TO HOME('/') PATH
 app.get('/', (req,res)=>{
