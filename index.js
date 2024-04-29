@@ -1,6 +1,9 @@
+require('dotenv').config()
 const express = require('express')
 const app = express()
 const port = process.env.PORT || 3000
+const client = require('./dbconnect')
+
 
 app.use( express.json() )
 app.use( express.urlencoded({extended:false}))
@@ -10,6 +13,17 @@ app.use( express.urlencoded({extended:false}))
 //GET - POST TO HOME('/') PATH
 app.get('/', (req,res)=>{
     res.send(`GET request`)
+})
+app.get('/mongo', async (req, res)=>{
+    try{
+        client.connect();
+        const teachers = client.db('persons').collection('teachers');
+        const data = await teachers.find().toArray()
+        res.send(data)
+    }
+    catch(e){
+        console.log(e);
+    }
 })
 app.post('/', (req,res)=>{
     res.send(`POST Request - isAdmin:${req.body.isAdmin}`)
