@@ -14,6 +14,16 @@ app.use( express.urlencoded({extended:false}))
 app.get('/', (req,res)=>{
     res.send(`GET request`)
 })
+app.get('/mongo-rail', async (req, res)=>{
+    try {
+        client.connect();
+        const coleccion1 = client.db('test').collection('coleccion1');
+        const data = await coleccion1.find().toArray();
+        res.send(data)
+    } catch (e) {
+        console.log(e);
+    }
+})
 app.get('/mongo', async (req, res)=>{
     try{
         client.connect();
